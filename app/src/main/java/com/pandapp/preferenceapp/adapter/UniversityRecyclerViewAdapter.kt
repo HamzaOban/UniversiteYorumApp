@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.pandapp.preferenceapp.R
-import com.pandapp.preferenceapp.ui.home.HomeFragmentDirections
+import com.pandapp.preferenceapp.ui.uni.UniversityFragmentDirections
 
-class RecyclerViewAdapter(private val universityNameList : ArrayList<String>) : RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>() {
+class UniversityRecyclerViewAdapter(private val universityNameList : ArrayList<String>) : RecyclerView.Adapter<UniversityRecyclerViewAdapter.RecyclerViewHolder>() {
 
     class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val uniName = itemView.findViewById<TextView>(R.id.uni_name_tv)
@@ -24,7 +24,7 @@ class RecyclerViewAdapter(private val universityNameList : ArrayList<String>) : 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.uniName.text = universityNameList[position]
         holder.itemView.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavHomeToNavSlideshow()
+            val action = UniversityFragmentDirections.actionNavHomeToNavSlideshow()
             Navigation.findNavController(it).navigate(action)
         }
     }

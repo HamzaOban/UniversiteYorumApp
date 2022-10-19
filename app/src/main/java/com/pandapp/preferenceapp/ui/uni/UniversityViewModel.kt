@@ -1,22 +1,16 @@
-package com.pandapp.preferenceapp.ui.home
+package com.pandapp.preferenceapp.ui.uni
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.model.Preference
-import com.pandapp.preferenceapp.model.Preferences
 import com.pandapp.preferenceapp.repository.PreferenceIRepository
 import com.pandapp.preferenceapp.repository.PreferenceRepository
 
-class HomeViewModel : ViewModel() ,PreferenceIRepository{
+class UniversityViewModel : ViewModel() ,PreferenceIRepository{
 
     private var preferenceRepository = PreferenceRepository(this)
     val preference = MutableLiveData<List<String>>()
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
 
     fun getAllUniversityName(){
         preferenceRepository.getAllUniversityName()
@@ -29,7 +23,12 @@ class HomeViewModel : ViewModel() ,PreferenceIRepository{
         preference.value = universityNameList
     }
 
-    override fun getListCityName(preferenceList: ArrayList<Preference>) {
+    override fun getListCityName(cityList: ArrayList<String>) {
+        TODO("Not yet implemented")
+    }
+
+
+    override fun getListDegreeName(degreeList: ArrayList<String>) {
         TODO("Not yet implemented")
     }
 }

@@ -5,5 +5,6 @@ import com.pandapp.preferenceapp.model.Preferences
 
 interface PreferenceIRepository {
     fun getListUniversityName(universityNameList : ArrayList<String>)
-    fun getListCityName(preferenceList : ArrayList<Preference>)
+    fun getListCityName(cityList : ArrayList<String>)
+    fun getListDegreeName(degreeList : ArrayList<String>)
 }

@@ -1,27 +1,22 @@
-package com.pandapp.preferenceapp.ui.home
+package com.pandapp.preferenceapp.ui.uni
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pandapp.preferenceapp.adapter.RecyclerViewAdapter
+import com.pandapp.preferenceapp.adapter.UniversityRecyclerViewAdapter
 import com.pandapp.preferenceapp.databinding.FragmentHomeBinding
-import com.pandapp.preferenceapp.model.Preference
 
-class HomeFragment : Fragment() {
+class UniversityFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private val viewModel : HomeViewModel by viewModels()
+    private val viewModel : UniversityViewModel by viewModels()
     var universityNameList = ArrayList<String>()
-    private lateinit var adapter : RecyclerViewAdapter
+    private lateinit var adapter : UniversityRecyclerViewAdapter
 
 
     // This property is only valid between onCreateView and
@@ -48,7 +43,7 @@ class HomeFragment : Fragment() {
             adapter.universityNameUpdate(it)
         })
 
-        adapter = RecyclerViewAdapter(universityNameList)
+        adapter = UniversityRecyclerViewAdapter(universityNameList)
         _binding?.recyclerView?.adapter = adapter
 
 
