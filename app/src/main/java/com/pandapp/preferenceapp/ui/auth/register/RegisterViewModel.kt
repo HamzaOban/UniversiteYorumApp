@@ -1,29 +1,29 @@
-package com.pandapp.preferenceapp.ui.auth.login
+package com.pandapp.preferenceapp.ui.auth.register
 
-import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.repository.AuthIRepository
 import com.pandapp.preferenceapp.repository.AuthRepository
 
-class LoginViewModel : ViewModel(), AuthIRepository {
+class RegisterViewModel : ViewModel() ,AuthIRepository {
+
     private val authRepository : AuthRepository = AuthRepository(this)
     var authTrigger = MutableLiveData<Boolean>()
     var authEmail = MutableLiveData<String>()
+    var authUserName = MutableLiveData<String>()
     var authPassword = MutableLiveData<String>()
 
-    fun loginAuth(email: String,password: String, view: View){
+    fun registerAuth(userName: String,email: String,password: String){
         authTrigger.value = true
-        authRepository.login(email,password,view)
+        authRepository.register(userName,email,password)
     }
-
     override fun login(email: String, password: String) {
-        authEmail.value = email
-        authPassword.value = password
+
     }
 
     override fun register(userName: String, email: String, password: String) {
-
+        authEmail.value = email
+        authUserName.value = userName
+        authPassword.value = password
     }
 }
