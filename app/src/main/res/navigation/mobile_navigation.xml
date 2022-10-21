@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_sehir" />
+        <action
+            android:id="@+id/action_nav_uni_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment

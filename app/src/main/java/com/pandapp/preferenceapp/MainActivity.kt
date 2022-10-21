@@ -1,17 +1,23 @@
 package com.pandapp.preferenceapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +54,20 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_logout -> {
+            // User chose the "Settings" item, show the app settings UI...
+            FirebaseAuth.getInstance().signOut()
+            Log.d("itemm","çıktı")
+            true
+        }
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
