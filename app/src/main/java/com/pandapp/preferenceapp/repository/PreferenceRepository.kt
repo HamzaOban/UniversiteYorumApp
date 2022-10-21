@@ -25,8 +25,6 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                     uniNameList.add(uniAdiValue.toString())
                     preferenceIRepository?.getListUniversityName(uniNameList)
                 }
-
-
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 TODO("Not yet implemented")

@@ -22,4 +22,8 @@
     <style name="Theme.PreferenceApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.PreferenceApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/orange_100</item>
+    </style>
 </resources>
