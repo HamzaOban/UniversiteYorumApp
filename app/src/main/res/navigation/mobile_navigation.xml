@@ -25,7 +25,14 @@
         android:id="@+id/nav_bolum"
         android:name="com.pandapp.preferenceapp.ui.degree.DegreeFragment"
         android:label="@string/menu_degree"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <argument
+            android:name="uniName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_nav_bolum_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_sehir"
@@ -55,5 +62,17 @@
         <action
             android:id="@+id/action_registerFragment_to_nav_uni"
             app:destination="@id/nav_uni" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.pandapp.preferenceapp.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="uniName"
+            app:argType="string" />
+        <argument
+            android:name="bolumName"
+            app:argType="string" />
     </fragment>
 </navigation>

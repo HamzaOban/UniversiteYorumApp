@@ -1,6 +1,7 @@
 package com.pandapp.preferenceapp.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,12 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.pandapp.preferenceapp.R
+import com.pandapp.preferenceapp.ui.degree.DegreeFragment
+import com.pandapp.preferenceapp.ui.degree.DegreeFragmentDirections
 import com.pandapp.preferenceapp.ui.uni.UniversityFragmentDirections
 
 class DegreeRecyclerViewAdapter(private val degreeNameList : ArrayList<String>) : RecyclerView.Adapter<DegreeRecyclerViewAdapter.RecyclerViewHolder>() {
+    private val degreeFragment = DegreeFragment()
     class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val uniName = itemView.findViewById<TextView>(R.id.uni_name_tv)
     }
@@ -23,7 +27,9 @@ class DegreeRecyclerViewAdapter(private val degreeNameList : ArrayList<String>) 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.uniName.text = degreeNameList[position]
         holder.itemView.setOnClickListener {
-
+            Log.d("views",degreeFragment.uniName.toString())
+            val action = DegreeFragmentDirections.actionNavBolumToDetailFragment(degreeFragment.uniName.toString(),degreeNameList[position])
+            Navigation.findNavController(it).navigate(action)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.pandapp.preferenceapp.ui.degree
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,14 +24,17 @@ class DegreeFragment : Fragment() {
     private lateinit var adapter : DegreeRecyclerViewAdapter
 
     private val binding get() = _binding!!
+    var uniName : String ?= ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(DegreeViewModel::class.java)
+        arguments.let {
+            uniName = it?.let { it1 -> DegreeFragmentArgs.fromBundle(it1).uniName }
+        }
+
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -41,7 +45,18 @@ class DegreeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        viewModel.getAllDegreeList()
+
+        if (uniName != ""){
+            Log.d("Selam","true")
+            viewModel.getAllDegreeList(uniName!!)
+
+        }
+        else{
+            Log.d("Selam","false")
+            viewModel.getAllDegreeList()
+        }
+
+
         viewModel.degreeLists.observe(viewLifecycleOwner, Observer {
             adapter.universityNameUpdate(it)
         })

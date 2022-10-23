@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.databinding.FragmentLoginBinding
 import com.pandapp.preferenceapp.databinding.FragmentRegisterBinding
@@ -28,6 +30,14 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater)
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(Firebase.auth.currentUser != null){
+            val action = RegisterFragmentDirections.actionRegisterFragmentToNavUni()
+            view?.let { Navigation.findNavController(it).navigate(action) }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

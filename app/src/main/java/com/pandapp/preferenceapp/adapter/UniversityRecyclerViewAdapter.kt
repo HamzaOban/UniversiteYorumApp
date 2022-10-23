@@ -24,7 +24,7 @@ class UniversityRecyclerViewAdapter(private val universityNameList : ArrayList<S
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.uniName.text = universityNameList[position]
         holder.itemView.setOnClickListener {
-            val action = UniversityFragmentDirections.actionNavHomeToNavSlideshow()
+            val action = UniversityFragmentDirections.actionNavHomeToNavGallery(universityNameList[position].toString())
             Navigation.findNavController(it).navigate(action)
         }
     }

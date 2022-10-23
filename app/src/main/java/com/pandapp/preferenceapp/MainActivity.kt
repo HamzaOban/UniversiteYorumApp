@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
 import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
 
@@ -48,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -5,10 +5,6 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.pandapp.preferenceapp.model.BolumTip
-import com.pandapp.preferenceapp.model.Preference
-import com.pandapp.preferenceapp.model.Preferences
 
 class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
     private var preferenceIRepository : PreferenceIRepository ?= preferenceIRepository
@@ -25,6 +21,66 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                     uniNameList.add(uniAdiValue.toString())
                     preferenceIRepository?.getListUniversityName(uniNameList)
                 }
+            }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    } fun getAllDegreeList(uniName : String){
+        FirebaseDatabase.getInstance().reference.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val uniAdiValue = snapshot.child("uniAdi").value
+                if (uniAdiValue != uniName){
+                    return
+                }
+
+                snapshot.child("dil").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("ea").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("say").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("soz").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+
+                preferenceIRepository?.getListDegreeName(degreeNameList)
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 TODO("Not yet implemented")

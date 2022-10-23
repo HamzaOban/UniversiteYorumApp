@@ -15,6 +15,9 @@ class DegreeViewModel : ViewModel(),PreferenceIRepository {
     fun getAllDegreeList(){
         preferenceRepository.getAllDegreeList()
     }
+    fun getAllDegreeList(uniName : String){
+        preferenceRepository.getAllDegreeList(uniName)
+    }
     override fun getListUniversityName(universityNameList: ArrayList<String>) {
     }
     override fun getListCityName(cityList: ArrayList<String>) {
