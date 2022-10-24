@@ -24,7 +24,10 @@ class DegreeFragment : Fragment() {
     private lateinit var adapter : DegreeRecyclerViewAdapter
 
     private val binding get() = _binding!!
-    var uniName : String ?= ""
+    companion object{
+        var uniName : String ?= ""
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +36,7 @@ class DegreeFragment : Fragment() {
     ): View {
         arguments.let {
             uniName = it?.let { it1 -> DegreeFragmentArgs.fromBundle(it1).uniName }
+            Log.d("uniName", uniName.toString())
         }
 
 

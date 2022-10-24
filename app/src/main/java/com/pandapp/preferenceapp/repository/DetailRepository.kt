@@ -6,4 +6,7 @@ class DetailRepository(detailRepo: DetailIRepository) {
     fun showDetails(){
 
     }
+    fun sendComment(){
+
+    }
 }

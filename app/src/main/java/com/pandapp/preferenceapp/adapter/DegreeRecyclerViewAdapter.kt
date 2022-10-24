@@ -27,8 +27,8 @@ class DegreeRecyclerViewAdapter(private val degreeNameList : ArrayList<String>) 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         holder.uniName.text = degreeNameList[position]
         holder.itemView.setOnClickListener {
-            Log.d("views",degreeFragment.uniName.toString())
-            val action = DegreeFragmentDirections.actionNavBolumToDetailFragment(degreeFragment.uniName.toString(),degreeNameList[position])
+            Log.d("views",DegreeFragment.uniName.toString())
+            val action = DegreeFragmentDirections.actionNavBolumToDetailFragment(DegreeFragment.uniName.toString(),degreeNameList[position])
             Navigation.findNavController(it).navigate(action)
         }
     }
