@@ -34,8 +34,8 @@ class DetailFragment : Fragment() {
             binding.uniNameDetailTv.text = uniName
         }
         binding.button2.setOnClickListener {
-            viewModel.sendComments(binding.textCommentEditText.text.toString(),
-                uniName.toString(),appUtil.getUserName())
+            /*viewModel.sendComments(binding.textCommentEditText.text.toString(),
+                uniName.toString(),)*/
         }
     }
 
