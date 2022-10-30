@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.pandapp.preferenceapp.R
+import com.pandapp.preferenceapp.model.Detail
 import com.pandapp.preferenceapp.ui.uni.UniversityFragmentDirections
 
-class DetailRecyclerViewAdapter(private val commentList : ArrayList<String>) : RecyclerView.Adapter<DetailRecyclerViewAdapter.RecyclerViewHolder>() {
+class DetailRecyclerViewAdapter(private val detailList : ArrayList<Detail>) : RecyclerView.Adapter<DetailRecyclerViewAdapter.RecyclerViewHolder>() {
 
     class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val userName = itemView.findViewById<TextView>(R.id.user_name_tv)
@@ -19,9 +20,9 @@ class DetailRecyclerViewAdapter(private val commentList : ArrayList<String>) : R
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun universityNameUpdate(newCommentList : List<String>){
-        commentList.clear()
-        commentList.addAll(newCommentList)
+    fun detailListUpdate(detailLists : List<Detail>){
+        detailList.clear()
+        detailList.addAll(detailLists)
         notifyDataSetChanged()
     }
 
@@ -31,13 +32,13 @@ class DetailRecyclerViewAdapter(private val commentList : ArrayList<String>) : R
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.userName.text = commentList[position]
-        holder.comment.text = commentList[position]
+        holder.userName.text = detailList[position].userName
+        holder.comment.text = detailList[position].comment
 
     }
 
     override fun getItemCount(): Int {
-        return commentList.size
+        return detailList.size
     }
 
 }

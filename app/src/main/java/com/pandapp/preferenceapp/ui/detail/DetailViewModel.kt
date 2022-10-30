@@ -10,13 +10,17 @@ import com.pandapp.preferenceapp.repository.PreferenceRepository
 class DetailViewModel : ViewModel() , DetailIRepository{
     private var detailRepository = DetailRepository(this)
     val detail = MutableLiveData<Detail>()
+    val detailList = MutableLiveData<List<Detail>>()
 
-    fun sendComments(comment: String, uniName: String, userName: String){
-        detailRepository.sendComment(comment,uniName,userName)
+    fun sendComments(comment: String, uniName: String, userName: String,bolumName : String){
+        detailRepository.sendComment(comment,uniName,userName,bolumName)
+    }
+    fun showDetails( uniName: String,bolumName : String){
+        detailRepository.showDetails(uniName,bolumName)
     }
 
     override fun showDetail(commentList: ArrayList<Detail>) {
-        TODO("Not yet implemented")
+        detailList.value = commentList
     }
 
     override fun sendComment(comment: String, uniName: String, userName: String) {

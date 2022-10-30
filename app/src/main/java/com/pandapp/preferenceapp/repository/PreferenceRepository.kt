@@ -23,7 +23,12 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                 }
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                val uniAdiValue = snapshot.child("uniAdi").value
+
+                if (!uniNameList.contains(uniAdiValue)){
+                    uniNameList.add(uniAdiValue.toString())
+                    preferenceIRepository?.getListUniversityName(uniNameList)
+                }
             }
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 TODO("Not yet implemented")
@@ -83,7 +88,49 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                 preferenceIRepository?.getListDegreeName(degreeNameList)
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                val uniAdiValue = snapshot.child("uniAdi").value
+                if (uniAdiValue != uniName){
+                    return
+                }
+
+                snapshot.child("dil").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("ea").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("say").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+                snapshot.child("soz").children.forEach {
+                    val degrees = it.child("bolumAdi").value
+                    Log.d("selam", degrees.toString())
+                    if (uniAdiValue == uniName) {
+                        if (!degreeNameList.contains(degrees) && degrees != null) {
+                            degreeNameList.add(degrees.toString())
+                        }
+                    }
+                }
+
+                preferenceIRepository?.getListDegreeName(degreeNameList)
             }
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 TODO("Not yet implemented")
@@ -119,7 +166,24 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                 preferenceIRepository?.getListDegreeName(degreeNameList)
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                val dilDegree = snapshot.child("dil/0/bolumAdi").value
+                val eaDegree = snapshot.child("ea/0/bolumAdi").value
+                val sayDegree = snapshot.child("say/0/bolumAdi").value
+                val sozDegree = snapshot.child("soz/0/bolumAdi").value
+
+                if (!degreeNameList.contains(dilDegree) && dilDegree != null){
+                    degreeNameList.add(dilDegree.toString())
+                }
+                if (!degreeNameList.contains(eaDegree) && eaDegree != null){
+                    degreeNameList.add(eaDegree.toString())
+                }
+                if (!degreeNameList.contains(sayDegree) && sayDegree != null){
+                    degreeNameList.add(sayDegree.toString())
+                }
+                if (!degreeNameList.contains(sozDegree) && sozDegree != null){
+                    degreeNameList.add(sozDegree.toString())
+                }
+                preferenceIRepository?.getListDegreeName(degreeNameList)
             }
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 TODO("Not yet implemented")
