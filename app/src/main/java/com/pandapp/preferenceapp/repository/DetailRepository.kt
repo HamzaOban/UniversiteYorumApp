@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.repository
 
+import android.widget.TextView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,9 +41,11 @@ class DetailRepository(detailRepo: DetailIRepository) {
 
         })
     }
-    fun sendComment(comment : String, uniName : String,userName : String,bolumName : String){
+    fun sendComment(comment : String, uniName : String,userName : String,bolumName : String, commentTextView: TextView){
         val detail = Detail(userName,comment)
         val ref = FirebaseDatabase.getInstance().getReference("comment/$uniName/$bolumName")
-        ref.child(UUID.randomUUID().toString()).setValue(detail)
+        ref.child(UUID.randomUUID().toString()).setValue(detail).addOnSuccessListener {
+            commentTextView.text = ""
+        }
     }
 }

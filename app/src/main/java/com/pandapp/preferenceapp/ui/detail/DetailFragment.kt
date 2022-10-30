@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.pandapp.preferenceapp.MainActivity
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.adapter.DetailRecyclerViewAdapter
 import com.pandapp.preferenceapp.adapter.UniversityRecyclerViewAdapter
@@ -25,12 +27,13 @@ class DetailFragment : Fragment() {
     private val viewModel : DetailViewModel by viewModels()
     var bolumName : String ?= ""
     var uniName : String ?= ""
-    private val appUtil = appUtil()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,12 +50,13 @@ class DetailFragment : Fragment() {
         }
         binding.button2.setOnClickListener {
             viewModel.sendComments(binding.textCommentEditText.text.toString(),
-                uniName.toString(),"hAMZA",bolumName.toString())
+                uniName.toString(), appUtil.userName ,bolumName.toString(),binding.textCommentEditText)
         }
         viewModel.showDetails(uniName.toString(),bolumName.toString())
         viewModel.detailList.observe(viewLifecycleOwner, Observer {
-            if (it != null)
-            adapter.detailListUpdate(it)
+            if (it != null){
+                adapter.detailListUpdate(it)
+            }
         })
     }
 

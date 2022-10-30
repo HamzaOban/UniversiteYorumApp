@@ -19,7 +19,6 @@ import java.time.Duration
 import kotlin.coroutines.coroutineContext
 
 class AuthRepository(authIRepo: AuthIRepository) {
-    private val appUtil = appUtil()
     private var authIRepository: AuthIRepository = authIRepo
 
 

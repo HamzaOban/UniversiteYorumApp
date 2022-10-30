@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.util
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -8,36 +9,36 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class appUtil {
-    fun getUID() : String?{
-        val firebaseAuth = FirebaseAuth.getInstance()
-        return firebaseAuth.uid
+    companion object{
+        lateinit var userName : String
+
+        fun getUserName(){
+            FirebaseDatabase.getInstance()
+                .getReference("users/${getUID()}").addListenerForSingleValueEvent(object  : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        val userNameValue = snapshot.child("userName").value
+                        if (userNameValue != null){
+                            userName = userNameValue.toString()
+                        }
+
+                        Log.d("UserName", userName.toString())
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
+
+
+        }
+        fun getUID() : String?{
+            val firebaseAuth = FirebaseAuth.getInstance()
+            return firebaseAuth.uid
+        }
     }
 
-    fun getUserName(){
-        var userName : String ?= ""
-        FirebaseDatabase.getInstance()
-            .getReference("users/${getUID()}")
-            .addChildEventListener(object : ChildEventListener{
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    userName = snapshot.child("userName").value.toString()
-                }
 
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
 
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-    }
 }

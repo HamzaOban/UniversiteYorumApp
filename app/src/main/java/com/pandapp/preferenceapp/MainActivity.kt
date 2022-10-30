@@ -19,13 +19,13 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
 import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+import com.pandapp.preferenceapp.util.appUtil
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        if (Firebase.auth.currentUser != null){
+            appUtil.getUserName()
+        }
 
     }
 

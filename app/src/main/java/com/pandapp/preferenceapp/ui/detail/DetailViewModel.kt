@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.ui.detail
 
+import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.model.Detail
@@ -12,8 +13,8 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     val detail = MutableLiveData<Detail>()
     val detailList = MutableLiveData<List<Detail>>()
 
-    fun sendComments(comment: String, uniName: String, userName: String,bolumName : String){
-        detailRepository.sendComment(comment,uniName,userName,bolumName)
+    fun sendComments(comment: String, uniName: String, userName: String,bolumName : String, commentTextView: TextView){
+        detailRepository.sendComment(comment,uniName,userName,bolumName,commentTextView)
     }
     fun showDetails( uniName: String,bolumName : String){
         detailRepository.showDetails(uniName,bolumName)
