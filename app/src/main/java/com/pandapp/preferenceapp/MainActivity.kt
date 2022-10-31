@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (Firebase.auth.currentUser != null){
-            appUtil.getUserName()
+            //appUtil.getUserName()
         }
 
     }
