@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener
 
 class appUtil {
     companion object{
-        lateinit var userName : String
+        var userName : String = ""
 
         fun getUserName(){
             FirebaseDatabase.getInstance()

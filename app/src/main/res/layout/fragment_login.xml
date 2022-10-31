@@ -9,6 +9,7 @@
     <EditText
         android:id="@+id/LoginEmailET"
         android:layout_width="379dp"
+        android:textSize="20sp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/rounded_item"
@@ -24,6 +25,7 @@
         android:id="@+id/LoginPasswordET"
         android:layout_width="379dp"
         android:layout_height="50dp"
+        android:textSize="20sp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_item"
         android:ems="10"
@@ -41,7 +43,6 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_item"
         android:text="@string/login"
-
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/LoginPasswordET"
@@ -53,7 +54,6 @@
         android:id="@+id/backToRegistrationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="8dp"
         android:text="@string/back_register"
         android:textColor="@color/black"

@@ -7,12 +7,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_logout">Logout</string>
 
-    <string name="menu_uni">Universiteye göre sıralama</string>
+    <string name="menu_uni">Universiteler</string>
+    <string name="menu_comment">Yaptığım yorumlar</string>
     <string name="menu_degree">Bölüme göre sıralama</string>
+    <string name="menu_register">Kayıt ol</string>
+    <string name="menu_login">Giriş yap</string>
     <string name="menu_city">Şehre göre sıralama</string>
+    <string name="comment_title">Yorum Yaptığım Üniversiteler</string>
 
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Logın</string>
+    <string name="register">Regıster</string>
     <string name="password">Password</string>
     <string name="user_name">User Name</string>
     <string name="already_account">Already have an account</string>

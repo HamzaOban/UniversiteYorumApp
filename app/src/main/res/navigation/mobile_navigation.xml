@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="@string/menu_login"
     app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/nav_uni"
         android:name="com.pandapp.preferenceapp.ui.uni.UniversityFragment"
         android:label="@string/menu_uni"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
             app:destination="@id/nav_bolum" />
@@ -25,7 +26,7 @@
         android:id="@+id/nav_bolum"
         android:name="com.pandapp.preferenceapp.ui.degree.DegreeFragment"
         android:label="@string/menu_degree"
-        tools:layout="@layout/fragment_gallery" >
+        tools:layout="@layout/fragment_gallery">
         <argument
             android:name="uniName"
             app:argType="string" />
@@ -42,8 +43,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.pandapp.preferenceapp.ui.auth.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -54,8 +55,8 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.pandapp.preferenceapp.ui.auth.register.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        android:label="@string/menu_register"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -67,7 +68,7 @@
         android:id="@+id/detailFragment"
         android:name="com.pandapp.preferenceapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="uniName"
             app:argType="string" />
@@ -75,4 +76,9 @@
             android:name="bolumName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_comment"
+        android:name="com.pandapp.preferenceapp.ui.comment.CommentFragment"
+        android:label="@string/menu_comment"
+        tools:layout="@layout/fragment_comment" />
 </navigation>

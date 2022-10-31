@@ -9,12 +9,8 @@
             android:icon="@drawable/mortarboard"
             android:title="@string/menu_uni" />
         <item
-            android:id="@+id/nav_bolum"
-            android:icon="@drawable/degree"
-            android:title="@string/menu_degree" />
-        <item
-            android:id="@+id/nav_sehir"
-            android:icon="@drawable/location"
-            android:title="@string/menu_city" />
+            android:id="@+id/nav_comment"
+            android:icon="@drawable/comment"
+            android:title="@string/menu_comment" />
     </group>
 </menu>

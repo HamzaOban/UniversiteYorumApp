@@ -64,7 +64,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_item"
-
         android:text="@string/register"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/RegisterPasswordET"
@@ -93,7 +92,6 @@
         android:text="@string/already_account"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/registerbtn"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="@+id/registerbtn"

@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">#FEFEFE</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#CC7100</item>
+        <item name="android:fontFamily">@font/defaul</item>
         <!-- Customize your theme here. -->
     </style>
 
