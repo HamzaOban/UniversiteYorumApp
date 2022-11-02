@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -60,13 +61,26 @@ class DegreeFragment : Fragment() {
             viewModel.getAllDegreeList()
         }
 
-
+        searchViewOnQuery()
         viewModel.degreeLists.observe(viewLifecycleOwner, Observer {
             adapter.universityNameUpdate(it)
         })
 
         adapter = DegreeRecyclerViewAdapter(degreeNameList)
         _binding?.recyclerView?.adapter = adapter
+    }
+    private fun searchViewOnQuery(){
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                adapter.filter.filter(p0)
+                return false
+            }
+
+        })
     }
     override fun onDestroyView() {
         super.onDestroyView()
