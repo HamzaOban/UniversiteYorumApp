@@ -47,7 +47,7 @@
     <TextView
         android:id="@+id/detail_comment_tv"
         android:layout_width="270dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
         android:text="this is my comment"

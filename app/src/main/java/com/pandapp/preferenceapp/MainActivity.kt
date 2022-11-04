@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,9 +19,16 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
 import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+import com.pandapp.preferenceapp.ui.auth.register.RegisterViewModel
+import com.pandapp.preferenceapp.ui.detail.DetailViewModel
 import com.pandapp.preferenceapp.util.appUtil
 
 
@@ -49,15 +59,17 @@ class MainActivity : AppCompatActivity() {
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+
         navView.setupWithNavController(navController)
     }
 
     override fun onStart() {
         super.onStart()
         if (Firebase.auth.currentUser != null){
-            //appUtil.getUserName()
+            appUtil.getUserName()
+            getUserName()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,7 +77,22 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
+    private fun getUserName(){
 
+        FirebaseDatabase.getInstance().getReference("users/${appUtil.getUID()}").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userName = snapshot.child("userName").value
+                val email = snapshot.child("email").value
+                binding.navView.getHeaderView(0).findViewById<TextView>(R.id.header_user_name).text = userName.toString()
+                binding.navView.getHeaderView(0).findViewById<TextView>(R.id.header_email).text = email.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_logout -> {
             // User chose the "Settings" item, show the app settings UI...

@@ -14,7 +14,7 @@
     <string name="menu_login">Giriş yap</string>
     <string name="menu_city">Şehre göre sıralama</string>
     <string name="comment_title">Yorum Yaptığım Üniversiteler</string>
-
+    <string name="fragment_detail">Yapılan yorumlar</string>
     <string name="login">Logın</string>
     <string name="register">Regıster</string>
     <string name="password">Password</string>

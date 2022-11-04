@@ -67,7 +67,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.pandapp.preferenceapp.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="@string/fragment_detail"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="uniName"
