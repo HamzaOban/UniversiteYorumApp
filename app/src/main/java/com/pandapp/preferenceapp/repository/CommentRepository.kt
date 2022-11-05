@@ -33,11 +33,33 @@ class CommentRepository(commentIRepo : CommentIRepository) {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
+                snapshot.children.forEach {
+                    it.children.forEach { it2->
+                        if (it2.child("userName").value.toString() == userName){
+                            val comment = it2.child("comment").value.toString()
+                            val uniName = snapshot.ref.key.toString()
+                            val bolumName = it.ref.key.toString()
+                            var comments = Comment(uniName,bolumName,comment)
+                            commentList.add(comments)
+                            commentIRepository.getCommentList(commentList)
+                        }
+                    }
+                }
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
+                snapshot.children.forEach {
+                    it.children.forEach { it2->
+                        if (it2.child("userName").value.toString() == userName){
+                            val comment = it2.child("comment").value.toString()
+                            val uniName = snapshot.ref.key.toString()
+                            val bolumName = it.ref.key.toString()
+                            var comments = Comment(uniName,bolumName,comment)
+                            commentList.add(comments)
+                            commentIRepository.getCommentList(commentList)
+                        }
+                    }
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
