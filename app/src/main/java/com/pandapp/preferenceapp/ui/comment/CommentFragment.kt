@@ -36,6 +36,7 @@ class CommentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.commentRecyclerView.layoutManager = LinearLayoutManager(context)
+        appUtil.getUserName()
         viewModel.getCommentList(appUtil.userName)
         Log.d("Selammm",appUtil.userName)
         viewModel.commentLists.observe(viewLifecycleOwner, Observer {

@@ -14,7 +14,7 @@ class appUtil {
 
         fun getUserName(){
             FirebaseDatabase.getInstance()
-                .getReference("users/${getUID()}").addListenerForSingleValueEvent(object  : ValueEventListener{
+                .getReference("users/${getUID()}").addValueEventListener(object  : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
 
                         val userNameValue = snapshot.child("userName").value

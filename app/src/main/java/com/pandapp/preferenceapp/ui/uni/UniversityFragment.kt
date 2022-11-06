@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.adapter.UniversityRecyclerViewAdapter
 import com.pandapp.preferenceapp.databinding.FragmentHomeBinding
+import com.pandapp.preferenceapp.util.appUtil
 
 class UniversityFragment : Fragment() {
 
@@ -42,9 +43,10 @@ class UniversityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        appUtil.getUserName()
         _binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         viewModel.getAllUniversityName()
+
         viewModel.preference.observe(viewLifecycleOwner, Observer {
             adapter.universityNameUpdate(it)
         })

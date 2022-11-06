@@ -1,15 +1,17 @@
 package com.pandapp.preferenceapp
 
-import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract.Events
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -19,16 +21,13 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
-import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
-import com.pandapp.preferenceapp.ui.auth.register.RegisterViewModel
-import com.pandapp.preferenceapp.ui.detail.DetailViewModel
+import com.pandapp.preferenceapp.ui.uni.UniversityFragment
 import com.pandapp.preferenceapp.util.appUtil
 
 
@@ -67,10 +66,22 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (Firebase.auth.currentUser != null){
+            Log.d("UserName","Truee")
             appUtil.getUserName()
             getUserName()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (Firebase.auth.currentUser != null){
+            Log.d("UserName","True")
+            appUtil.getUserName()
+            getUserName()
+        }
+    }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userName = snapshot.child("userName").value
                 val email = snapshot.child("email").value
+
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.header_user_name).text = userName.toString()
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.header_email).text = email.toString()
             }
@@ -97,6 +109,13 @@ class MainActivity : AppCompatActivity() {
         R.id.action_logout -> {
             // User chose the "Settings" item, show the app settings UI...
             FirebaseAuth.getInstance().signOut()
+            val fragment = UniversityFragment()
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.add(fragment,"sdasd")
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+
             Log.d("itemm","çıktı")
             true
         }
