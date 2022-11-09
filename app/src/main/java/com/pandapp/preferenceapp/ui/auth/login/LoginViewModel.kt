@@ -26,4 +26,8 @@ class LoginViewModel : ViewModel(), AuthIRepository {
     override fun register(userName: String, email: String, password: String) {
 
     }
+
+    override fun registerIsSuccess(isSuccess: Boolean): Boolean {
+        TODO("Not yet implemented")
+    }
 }

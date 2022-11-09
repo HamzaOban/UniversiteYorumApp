@@ -65,7 +65,14 @@ class DegreeFragment : Fragment() {
         viewModel.degreeLists.observe(viewLifecycleOwner, Observer {
             adapter.universityNameUpdate(it)
         })
-
+        viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.degreeProgressBar.visibility = View.VISIBLE
+            }
+            else {
+                binding.degreeProgressBar.visibility = View.GONE
+            }
+        })
         adapter = DegreeRecyclerViewAdapter(degreeNameList)
         _binding?.recyclerView?.adapter = adapter
     }

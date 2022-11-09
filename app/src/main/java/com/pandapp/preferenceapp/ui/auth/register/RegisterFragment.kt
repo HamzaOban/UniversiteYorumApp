@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -47,6 +48,12 @@ class RegisterFragment : Fragment() {
                 binding.RegisterEmailET.text.toString(),
                 binding.RegisterPasswordET.text.toString())
         }
+        viewModel.isSuccessValue.observe(viewLifecycleOwner, Observer {
+            if (it){
+                val action = RegisterFragmentDirections.actionRegisterFragmentToNavUni()
+                Navigation.findNavController(view).navigate(action)
+            }
+        })
         binding.alreadyAccountTV.setOnClickListener {
             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
             Navigation.findNavController(it).navigate(action)

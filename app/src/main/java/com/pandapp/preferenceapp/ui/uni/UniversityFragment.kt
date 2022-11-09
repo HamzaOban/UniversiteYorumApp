@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.ui.uni
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,7 +51,14 @@ class UniversityFragment : Fragment() {
         viewModel.preference.observe(viewLifecycleOwner, Observer {
             adapter.universityNameUpdate(it)
         })
-
+        viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.uniProgressBar.visibility = View.VISIBLE
+            }
+            else{
+                binding.uniProgressBar.visibility = View.GONE
+            }
+        })
         adapter = UniversityRecyclerViewAdapter(universityNameList)
         searchViewOnQuery()
         _binding?.recyclerView?.adapter = adapter

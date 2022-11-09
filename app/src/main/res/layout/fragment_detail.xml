@@ -53,17 +53,32 @@
 
     </TextView>
 
+    <RatingBar
+        android:id="@+id/detail_rating_bar"
+        android:layout_width="wrap_content"
+        android:progressTint="@color/orange_500"
+        android:stepSize="1.0"
+        android:layout_height="50dp"
+        android:numStars="5"
+        app:layout_constraintBottom_toTopOf="@+id/yorumlar_detail_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bolum_name_detail_tv"
+        app:layout_constraintVertical_bias="0.0">
+
+    </RatingBar>
+
     <TextView
         android:id="@+id/yorumlar_detail_tv"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Yorumlar"
         android:textAlignment="textStart"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,13 +91,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/yorumlar_recycler_view_tv"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="350dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yorumlar_detail_tv" />
 
@@ -91,10 +104,11 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_margin="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:text="Gönder"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
@@ -106,10 +120,11 @@
         android:layout_width="368dp"
         android:layout_height="88dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
         app:endIconCheckable="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yorumlar_recycler_view_tv"
         app:startIconDrawable="@drawable/ic_baseline_add_comment_24">

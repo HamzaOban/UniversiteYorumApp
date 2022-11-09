@@ -44,7 +44,7 @@ class AuthRepository(authIRepo: AuthIRepository) {
                 it.printStackTrace()
             }
     }
-    private fun saveUserToFirebaseDatabase(userName: String, email: String, password: String,){
+    private fun saveUserToFirebaseDatabase(userName: String, email: String, password: String){
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/${appUtil.getUID()}")
         val user = User(userName,email,password)
@@ -53,10 +53,13 @@ class AuthRepository(authIRepo: AuthIRepository) {
                 Handler().postDelayed(Runnable {
                     Log.d("login","database kayıt başarılı")
                     // Code to start new activity and finish this one
-
+                    authIRepository.registerIsSuccess(true)
 
                 }, 1500L)
 
+            }
+            .addOnFailureListener {
+                authIRepository.registerIsSuccess(false)
             }
     }
 

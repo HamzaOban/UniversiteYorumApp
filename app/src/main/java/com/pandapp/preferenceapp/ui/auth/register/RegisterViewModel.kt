@@ -12,6 +12,7 @@ class RegisterViewModel : ViewModel() ,AuthIRepository {
     var authEmail = MutableLiveData<String>()
     var authUserName = MutableLiveData<String>()
     var authPassword = MutableLiveData<String>()
+    var isSuccessValue = MutableLiveData<Boolean>()
 
     fun registerAuth(userName: String,email: String,password: String){
         authTrigger.value = true
@@ -25,5 +26,12 @@ class RegisterViewModel : ViewModel() ,AuthIRepository {
         authEmail.value = email
         authUserName.value = userName
         authPassword.value = password
+    }
+
+    override fun registerIsSuccess(isSuccess: Boolean): Boolean {
+        isSuccessValue.value = isSuccess
+
+        return isSuccessValue.value == true
+
     }
 }

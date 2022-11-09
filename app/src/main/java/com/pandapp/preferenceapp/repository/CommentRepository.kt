@@ -28,6 +28,9 @@ class CommentRepository(commentIRepo : CommentIRepository) {
                         }
                     }
                 }
+                if (commentList.isEmpty()){
+                    commentIRepository.getCommentList(commentList)
+                }
 
 
             }
@@ -45,6 +48,10 @@ class CommentRepository(commentIRepo : CommentIRepository) {
                         }
                     }
                 }
+                if (commentList.isEmpty()){
+                    commentIRepository.getCommentList(commentList)
+                }
+
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -60,7 +67,11 @@ class CommentRepository(commentIRepo : CommentIRepository) {
                         }
                     }
                 }
+                if (commentList.isEmpty()){
+                    commentIRepository.getCommentList(commentList)
+                }
             }
+
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
                 TODO("Not yet implemented")

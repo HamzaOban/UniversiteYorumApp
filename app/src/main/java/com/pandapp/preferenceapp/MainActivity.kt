@@ -109,13 +109,6 @@ class MainActivity : AppCompatActivity() {
         R.id.action_logout -> {
             // User chose the "Settings" item, show the app settings UI...
             FirebaseAuth.getInstance().signOut()
-            val fragment = UniversityFragment()
-            val fragmentManager = fragmentManager
-            val fragmentTransaction = fragmentManager!!.beginTransaction()
-            fragmentTransaction.add(fragment,"sdasd")
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
             Log.d("itemm","çıktı")
             true
         }

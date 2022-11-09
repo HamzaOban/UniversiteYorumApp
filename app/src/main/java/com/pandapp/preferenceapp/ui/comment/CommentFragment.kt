@@ -37,11 +37,34 @@ class CommentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.commentRecyclerView.layoutManager = LinearLayoutManager(context)
         appUtil.getUserName()
-        viewModel.getCommentList(appUtil.userName)
+        viewModel.getCommentLists(appUtil.userName)
         Log.d("Selammm",appUtil.userName)
         viewModel.commentLists.observe(viewLifecycleOwner, Observer {
-            if (it != null){
+            if (it.isNotEmpty()){
                 adapter.commentsListUpdate(it)
+                binding.commentProgressBar.visibility = View.GONE
+                binding.commentRecyclerView.visibility = View.VISIBLE
+                binding.commentEmptyTv.visibility = View.GONE
+            }
+        })
+        /*viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.commentProgressBar.visibility = View.VISIBLE
+            }
+            else{
+                binding.commentProgressBar.visibility = View.GONE
+            }
+        })*/
+        viewModel.isEmpty.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.commentProgressBar.visibility = View.GONE
+                binding.commentRecyclerView.visibility = View.GONE
+                binding.commentEmptyTv.text = "Daha önceden yorum yapmadınız..."
+            }
+            else{
+                Log.d("comment","isNotEmpty")
+                binding.commentRecyclerView.visibility = View.VISIBLE
+                binding.commentEmptyTv.text = ""
             }
         })
         adapter = CommentRecyclerViewAdapter(commentsList)

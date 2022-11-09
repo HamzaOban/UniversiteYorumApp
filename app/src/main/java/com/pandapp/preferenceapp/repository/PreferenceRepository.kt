@@ -40,7 +40,9 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
                 TODO("Not yet implemented")
             }
         })
-    } fun getAllDegreeList(uniName : String){
+
+    }
+    fun getAllDegreeList(uniName : String){
         FirebaseDatabase.getInstance().reference.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val uniAdiValue = snapshot.child("uniAdi").value

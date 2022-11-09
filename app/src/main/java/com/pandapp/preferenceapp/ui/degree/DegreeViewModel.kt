@@ -11,6 +11,8 @@ class DegreeViewModel : ViewModel(),PreferenceIRepository {
 
     private var preferenceRepository = PreferenceRepository(this)
     val degreeLists = MutableLiveData<List<String>>()
+    val isLoaded = MutableLiveData<Boolean>()
+
 
     fun getAllDegreeList(){
         preferenceRepository.getAllDegreeList()
@@ -23,6 +25,7 @@ class DegreeViewModel : ViewModel(),PreferenceIRepository {
     override fun getListCityName(cityList: ArrayList<String>) {
     }
     override fun getListDegreeName(degreeList: ArrayList<String>) {
+        isLoaded.value = degreeList.isEmpty()
         degreeLists.value = degreeList
     }
 }
