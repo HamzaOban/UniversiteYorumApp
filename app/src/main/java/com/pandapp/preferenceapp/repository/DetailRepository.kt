@@ -44,6 +44,7 @@ class DetailRepository(detailRepo: DetailIRepository) {
             }
 
         })
+        detailIRepository.showDetail(detailList)
     }
     fun sendComment(comment : String, uniName : String,userName : String,bolumName : String, commentTextView: TextView){
         val detail = Detail(userName,comment)
@@ -88,5 +89,7 @@ class DetailRepository(detailRepo: DetailIRepository) {
             }
 
         })
+        //Log.d("Average",rateList.average().toString())
+        detailIRepository.showRate(rate,rateList)
     }
 }

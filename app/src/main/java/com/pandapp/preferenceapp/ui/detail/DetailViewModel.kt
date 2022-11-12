@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.ui.detail
 
+import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class DetailViewModel : ViewModel() , DetailIRepository{
         detailRepository.rateIt(rate.uniName,rate.bolumName,rate.rate,rate.userName)
     }
     fun showRates(rate: Rate){
+        Log.d("Average",rate.rate.toString())
         detailRepository.showRate(rate)
     }
 
@@ -43,7 +45,14 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     }
 
     override fun showRate(rate: Rate, rateList: ArrayList<Double>) {
-        this.rateList.value = rateList
+
+        if (rateList.isEmpty()){
+            this.rateList.value = arrayListOf()
+        }
+        else{
+            this.rateList.value = rateList
+        }
+
     }
 
 }

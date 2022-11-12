@@ -73,6 +73,7 @@ class DetailFragment : Fragment() {
                 dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
                     override fun onClick(p0: DialogInterface?, p1: Int) {
                         val rate = Rate(uniName.toString(),bolumName.toString(),fl.toDouble(),appUtil.userName)
+
                         viewModel.rateIts(rate)
                     }
 
@@ -85,11 +86,27 @@ class DetailFragment : Fragment() {
                 })
                 dialog.show()
             }
+
         }
         viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+
         viewModel.rateList.observe(viewLifecycleOwner, Observer {
             val average = it.average()
-            binding.detailRatingBar.rating = average.toFloat()
+            Log.d("comment2",average.toString())
+
+
+            if (average.isNaN()){
+                binding.ratingScoreTv.text = 0.0.toString()
+                binding.detailRatingBar.rating = 0.0.toFloat()
+                Log.d("selam2","true")
+            }
+            else{
+                binding.ratingScoreTv.text = average.toString()
+                binding.detailRatingBar.rating = average.toFloat()
+                Log.d("selam2","false")
+
+            }
+
         })
     }
 
