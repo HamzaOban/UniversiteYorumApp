@@ -51,7 +51,7 @@ class DegreeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
 
-        if (uniName != ""){
+        if (uniName != "" && uniName != null){
             Log.d("Selam","true")
             viewModel.getAllDegreeList(uniName!!)
 

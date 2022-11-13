@@ -1,17 +1,16 @@
 package com.pandapp.preferenceapp
 
 import android.os.Bundle
-import android.provider.CalendarContract.Events
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+import com.pandapp.preferenceapp.ui.degree.DegreeFragment
 import com.pandapp.preferenceapp.ui.uni.UniversityFragment
 import com.pandapp.preferenceapp.util.appUtil
 
@@ -50,17 +51,19 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_uni,R.id.nav_comment
+                R.id.nav_uni,R.id.nav_comment,R.id.nav_logout
             ), drawerLayout
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-
         navView.setupWithNavController(navController)
+
+
     }
 
     override fun onStart() {
@@ -105,18 +108,8 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_logout -> {
-            // User chose the "Settings" item, show the app settings UI...
-            FirebaseAuth.getInstance().signOut()
-            Log.d("itemm","çıktı")
-            true
-        }
-        else -> {
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
-            super.onOptionsItemSelected(item)
-        }
+    override fun onOptionsItemSelected(item: MenuItem) : Boolean{
+       return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

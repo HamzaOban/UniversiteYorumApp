@@ -12,5 +12,10 @@
             android:id="@+id/nav_comment"
             android:icon="@drawable/comment"
             android:title="@string/menu_comment" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/menu_logout" />
     </group>
+
 </menu>
