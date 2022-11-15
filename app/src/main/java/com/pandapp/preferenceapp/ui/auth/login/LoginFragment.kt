@@ -1,15 +1,17 @@
 package com.pandapp.preferenceapp.ui.auth.login
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.databinding.FragmentLoginBinding
-import com.pandapp.preferenceapp.databinding.FragmentSlideshowBinding
 
 class LoginFragment : Fragment() {
 
@@ -23,6 +25,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
+
         binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
@@ -36,6 +39,10 @@ class LoginFragment : Fragment() {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             Navigation.findNavController(it).navigate(action)
         }
+
     }
 
+    fun onBackPressed() : Boolean {
+        return false
+    }
 }

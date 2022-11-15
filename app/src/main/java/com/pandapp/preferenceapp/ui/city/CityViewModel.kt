@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.model.Preference
+import com.pandapp.preferenceapp.model.User
 import com.pandapp.preferenceapp.repository.PreferenceIRepository
 import com.pandapp.preferenceapp.repository.PreferenceRepository
 
@@ -25,5 +26,8 @@ class CityViewModel : ViewModel() , PreferenceIRepository {
 
     override fun getListDegreeName(degreeList: ArrayList<String>) {
 
+    }
+
+    override fun getUserInfo(userInfo: User) {
     }
 }

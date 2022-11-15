@@ -1,16 +1,18 @@
 package com.pandapp.preferenceapp.repository
 
 import android.util.Log
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import android.widget.TextView
+import com.google.firebase.database.*
+import com.pandapp.preferenceapp.R
+import com.pandapp.preferenceapp.model.User
+import com.pandapp.preferenceapp.util.appUtil
 
 class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
     private var preferenceIRepository : PreferenceIRepository ?= preferenceIRepository
     private var uniNameList = ArrayList<String>()
     private var cityNameList = ArrayList<String>()
     private var degreeNameList = ArrayList<String>()
+    private lateinit var userInfo : User
 
     fun getAllUniversityName(){
         FirebaseDatabase.getInstance().reference.addChildEventListener(object : ChildEventListener{
@@ -221,6 +223,26 @@ class PreferenceRepository(preferenceIRepository: PreferenceIRepository) {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+        })
+    }
+
+    fun getUserName(){
+
+        FirebaseDatabase.getInstance().getReference("users/${appUtil.getUID()}").addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val snap = snapshot.getValue(User::class.java)
+                if (snap != null){
+                    userInfo = snap
+                    preferenceIRepository?.getUserInfo(userInfo)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
     }
 

@@ -1,7 +1,10 @@
 package com.pandapp.preferenceapp.model
 
 data class User(
-    val userName : String,
-    val email : String,
+    var userName : String,
+    var email : String,
     val password : String
-)
+){
+    constructor() : this("","","")
+}
+

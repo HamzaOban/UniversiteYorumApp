@@ -13,8 +13,7 @@
         android:padding="10dp"
         android:text="this is my message"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="normal"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

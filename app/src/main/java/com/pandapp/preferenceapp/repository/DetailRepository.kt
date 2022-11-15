@@ -64,7 +64,7 @@ class DetailRepository(detailRepo: DetailIRepository) {
     }
     fun showRate(rate: Rate){
         val ref = FirebaseDatabase.getInstance().getReference("rate/${rate.uniName}/${rate.bolumName}")
-
+        rateList.clear()
         ref.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val snap = snapshot.child("rate").value

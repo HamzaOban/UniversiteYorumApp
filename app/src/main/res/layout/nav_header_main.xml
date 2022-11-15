@@ -9,24 +9,31 @@
     android:padding="15dp"
     android:theme="@style/Theme.PreferenceApp">
 
+    <TextView
+        android:id="@+id/welcome_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Hoşgeldin!"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/header_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:gravity="center_vertical"
         android:text="@string/nav_header_title"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <TextView
         android:id="@+id/header_email"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="start"
-        android:textSize="16sp"
-        android:textStyle="italic"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/nav_header_subtitle" />
 </LinearLayout>

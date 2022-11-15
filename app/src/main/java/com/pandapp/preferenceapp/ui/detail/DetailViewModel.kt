@@ -16,6 +16,8 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     val rate = MutableLiveData<Rate>()
     val rateList = MutableLiveData<List<Double>>()
     val detailList = MutableLiveData<List<Detail>>()
+    val isLoaded = MutableLiveData<Boolean>()
+    val isEmpty = MutableLiveData<Boolean>()
 
     fun sendComments(comment: String, uniName: String, userName: String,bolumName : String, commentTextView: TextView){
         detailRepository.sendComment(comment,uniName,userName,bolumName,commentTextView)
@@ -45,11 +47,16 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     }
 
     override fun showRate(rate: Rate, rateList: ArrayList<Double>) {
+        isLoaded.value = true
 
         if (rateList.isEmpty()){
+            isLoaded.value = false
+            isEmpty.value = true
             this.rateList.value = arrayListOf()
         }
         else{
+            isLoaded.value = false
+            isEmpty.value = false
             this.rateList.value = rateList
         }
 

@@ -1,28 +1,25 @@
 package com.pandapp.preferenceapp.ui.detail
 
-import android.annotation.SuppressLint
+import android.R
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.pandapp.preferenceapp.MainActivity
-import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.adapter.DetailRecyclerViewAdapter
-import com.pandapp.preferenceapp.adapter.UniversityRecyclerViewAdapter
 import com.pandapp.preferenceapp.databinding.FragmentDetailBinding
 import com.pandapp.preferenceapp.model.Detail
 import com.pandapp.preferenceapp.model.Rate
 import com.pandapp.preferenceapp.util.appUtil
+
 
 class DetailFragment : Fragment() {
 
@@ -33,19 +30,26 @@ class DetailFragment : Fragment() {
     var bolumName : String ?= ""
     var uniName : String ?= ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.yorumlarRecyclerViewTv.layoutManager = LinearLayoutManager(context)
+        val horizontalDecoration = DividerItemDecoration(
+            binding.yorumlarRecyclerViewTv.context,
+            DividerItemDecoration.VERTICAL
+        )
 
         adapter = DetailRecyclerViewAdapter(detailList)
+        val verticalDividers = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
+        verticalDividers.setDrawable(resources.getDrawable(com.pandapp.preferenceapp.R.drawable.vertical_divider))
+
+
+        binding.yorumlarRecyclerViewTv.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         binding.yorumlarRecyclerViewTv.adapter = adapter
+
 
         arguments.let {
             bolumName = it?.let { it1 -> DetailFragmentArgs.fromBundle(it1).bolumName }
@@ -60,6 +64,7 @@ class DetailFragment : Fragment() {
         viewModel.showDetails(uniName.toString(),bolumName.toString())
         viewModel.detailList.observe(viewLifecycleOwner, Observer {
             if (it != null){
+                binding.detailInformationTv.text = ""
                 adapter.detailListUpdate(it)
             }
         })
@@ -67,29 +72,40 @@ class DetailFragment : Fragment() {
         binding.detailRatingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
             if (b){
                 //popup ekranı çıkar evete basarsa
+                Log.d("detailRatingBar","isNotEmpty")
+
                 val dialog = AlertDialog.Builder(this.context)
                 dialog.setTitle("Puanlama yapmak istiyor musun?")
                 dialog.setMessage("${binding.bolumNameDetailTv.text} Bolumune $fl Puan vermek istiyor musun?")
                 dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
                     override fun onClick(p0: DialogInterface?, p1: Int) {
                         val rate = Rate(uniName.toString(),bolumName.toString(),fl.toDouble(),appUtil.userName)
-
                         viewModel.rateIts(rate)
+                        viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+                        ratingBar.rating = viewModel.rateList.value!!.average().toFloat()
                     }
-
                 })
                 dialog.setNegativeButton("Hayır",object  : DialogInterface.OnClickListener{
                     override fun onClick(p0: DialogInterface?, p1: Int) {
-
+                        ratingBar.rating = viewModel.rateList.value!!.average().toFloat()
                     }
-
                 })
                 dialog.show()
             }
-
         }
         viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
-
+        viewModel.isEmpty.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.detailProgressBar.visibility = View.GONE
+                binding.yorumlarRecyclerViewTv.visibility = View.VISIBLE
+                binding.detailInformationTv.text = "Yorum yapılmadı..."
+            }
+            else{
+                Log.d("comment","isNotEmpty")
+                binding.yorumlarRecyclerViewTv.visibility = View.VISIBLE
+                binding.detailInformationTv.text = ""
+            }
+        })
         viewModel.rateList.observe(viewLifecycleOwner, Observer {
             val average = it.average()
             Log.d("comment2",average.toString())
@@ -108,6 +124,7 @@ class DetailFragment : Fragment() {
             }
 
         })
+
     }
 
     override fun onCreateView(

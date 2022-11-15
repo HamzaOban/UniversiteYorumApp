@@ -2,16 +2,20 @@
     <!-- Base application theme. -->
     <style name="Theme.PreferenceApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#CD7100</item>
-        <item name="colorPrimaryVariant">#FF8F00</item>
+        <item name="colorPrimary">#7895B2</item>
+        <item name="colorPrimaryVariant">#AEBDCA</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#CC7100</item>
-        <item name="colorSecondaryVariant">#FE8E00</item>
+        <item name="colorSecondary">#E8DFCA</item>
+        <item name="colorSecondaryVariant">#F5EFE6</item>
         <item name="colorOnSecondary">#FEFEFE</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">#CC7100</item>
-        <item name="android:fontFamily">@font/defaul</item>
+        <item name="android:statusBarColor">#7895B2</item>
+        <item name="android:fontFamily">@font/cercoregular</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -26,5 +30,9 @@
 
     <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">#FFCE90</item>
+    </style>
+    <style name="customRatingBar"
+        parent="android:style/Widget.Material.RatingBar.Small">
+        ... // Additional customizations
     </style>
 </resources>

@@ -1,23 +1,23 @@
 package com.pandapp.preferenceapp.ui.auth.register
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.R
-import com.pandapp.preferenceapp.databinding.FragmentLoginBinding
 import com.pandapp.preferenceapp.databinding.FragmentRegisterBinding
-import com.pandapp.preferenceapp.ui.auth.login.LoginFragmentDirections
-import com.pandapp.preferenceapp.ui.auth.login.LoginViewModel
 
 class RegisterFragment : Fragment() {
-
     private val viewModel : RegisterViewModel by viewModels()
     private lateinit var binding : FragmentRegisterBinding
 
@@ -29,8 +29,10 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         binding = FragmentRegisterBinding.inflate(inflater)
         return binding.root
+
     }
 
     override fun onStart() {
@@ -48,6 +50,7 @@ class RegisterFragment : Fragment() {
                 binding.RegisterEmailET.text.toString(),
                 binding.RegisterPasswordET.text.toString())
         }
+        
         viewModel.isSuccessValue.observe(viewLifecycleOwner, Observer {
             if (it){
                 val action = RegisterFragmentDirections.actionRegisterFragmentToNavUni()
@@ -59,5 +62,26 @@ class RegisterFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
 
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("Loglandın","31")
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("Loglandın","11")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("Loglandın","21")
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
+
+    }
+    fun onBackPressed(): Boolean {
+        return false
     }
 }
