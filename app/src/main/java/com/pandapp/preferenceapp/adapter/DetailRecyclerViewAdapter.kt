@@ -9,7 +9,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.model.Detail
-import com.pandapp.preferenceapp.ui.uni.UniversityFragmentDirections
 
 class DetailRecyclerViewAdapter(private val detailList : ArrayList<Detail>) : RecyclerView.Adapter<DetailRecyclerViewAdapter.RecyclerViewHolder>() {
 

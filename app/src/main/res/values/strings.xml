@@ -5,23 +5,24 @@
     <string name="nav_header_title">Tercih Listesi Uygulaması</string>
     <string name="nav_header_subtitle">hamzaoban3@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_logout">Logout</string>
+    <string name="action_logout">Çıkış Yap</string>
 
     <string name="menu_uni">Universiteler</string>
+    <string name="menu_home">Anasayfa</string>
     <string name="menu_comment">Yaptığım yorumlar</string>
     <string name="menu_logout">Çıkış yap</string>
     <string name="menu_degree">Bölüme göre sıralama</string>
     <string name="menu_register">Kayıt ol</string>
     <string name="menu_login">Giriş yap</string>
     <string name="menu_city">Şehre göre sıralama</string>
-    <string name="comment_title">Yorum Yaptığım Üniversiteler</string>
+    <string name="comment_title">Yorum Yaptığım \n Üniversite ve Bölümler</string>
     <string name="fragment_detail">Yapılan yorumlar</string>
-    <string name="login">Logın</string>
-    <string name="register">Regıster</string>
-    <string name="password">Password</string>
-    <string name="user_name">User Name</string>
-    <string name="already_account">Already have an account</string>
-    <string name="back_register">Back to registration</string>
+    <string name="login">Giriş Yap</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="password">Şifre</string>
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="already_account">Zaten hesabınız var mı</string>
+    <string name="back_register">Kayıt ekranına geri dön</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

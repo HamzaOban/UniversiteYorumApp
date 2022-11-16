@@ -15,12 +15,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:autoSizeMaxTextSize="22dp"
-
+        android:autoSizeMaxTextSize="18sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeTextType="uniform"
         android:text="Fırat Üniversitesi"
-        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,7 +38,6 @@
         android:autoSizeMinTextSize="10sp"
         android:autoSizeTextType="uniform"
         android:text="Yazılım mühendisliği"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

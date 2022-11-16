@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.ui.degree.DegreeFragment
 import com.pandapp.preferenceapp.ui.degree.DegreeFragmentDirections
-import com.pandapp.preferenceapp.ui.uni.UniversityFragmentDirections
 import java.util.*
 import kotlin.collections.ArrayList
 

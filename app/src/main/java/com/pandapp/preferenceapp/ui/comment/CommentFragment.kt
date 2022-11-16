@@ -59,7 +59,7 @@ class CommentFragment : Fragment() {
             if (it){
                 binding.commentProgressBar.visibility = View.GONE
                 binding.commentRecyclerView.visibility = View.GONE
-                binding.commentEmptyTv.text = "Daha önceden yorum yapmadınız..."
+                binding.commentEmptyTv.text = "Daha önce yorum yapmadınız..."
             }
             else{
                 Log.d("comment","isNotEmpty")

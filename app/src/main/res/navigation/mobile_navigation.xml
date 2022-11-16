@@ -10,16 +10,13 @@
         android:id="@+id/nav_uni"
         android:name="com.pandapp.preferenceapp.ui.uni.UniversityFragment"
         android:label="@string/menu_uni"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_uni">
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
             app:destination="@id/nav_bolum" />
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_sehir" />
-        <action
-            android:id="@+id/action_nav_uni_to_registerFragment"
-            app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_nav_uni_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -54,6 +51,9 @@
         <action
             android:id="@+id/action_loginFragment_to_nav_uni"
             app:destination="@id/nav_uni" />
+        <action
+            android:id="@+id/action_loginFragment_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_registerFragment_to_nav_uni"
             app:destination="@id/nav_uni" />
+        <action
+            android:id="@+id/action_registerFragment_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -84,4 +87,19 @@
         android:name="com.pandapp.preferenceapp.ui.comment.CommentFragment"
         android:label="@string/menu_comment"
         tools:layout="@layout/fragment_comment" />
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.pandapp.preferenceapp.ui.home.HomeFragment"
+        android:label="Anasayfa"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_uni"
+            app:destination="@id/nav_uni" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_comment"
+            app:destination="@id/nav_comment" />
+    </fragment>
 </navigation>

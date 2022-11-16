@@ -1,13 +1,18 @@
 package com.pandapp.preferenceapp.ui.detail
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,11 +34,9 @@ class DetailFragment : Fragment() {
     private val viewModel : DetailViewModel by viewModels()
     var bolumName : String ?= ""
     var uniName : String ?= ""
+    var rate : Double ?= 0.0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.yorumlarRecyclerViewTv.layoutManager = LinearLayoutManager(context)
@@ -58,10 +61,45 @@ class DetailFragment : Fragment() {
             binding.uniNameDetailTv.text = uniName
         }
         binding.button2.setOnClickListener {
-            viewModel.sendComments(binding.textCommentEditText.text.toString(),
-                uniName.toString(), appUtil.userName ,bolumName.toString(),binding.textCommentEditText)
+            if (rate == 0.0){
+                Toast.makeText(view.context,"Lütfen puanlama yapınız.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (binding.textCommentEditText.text?.isEmpty() == true){
+                Toast.makeText(view.context,"Lütfen yorum yazınız.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val dialog = AlertDialog.Builder(context)
+            dialog.setTitle("Puanlama ve Yorum Yapmak İstiyor Musun?")
+            dialog.setMessage("${binding.bolumNameDetailTv.text} Bolumune $rate Puan vermek ve ${binding.textCommentEditText.text} yorumunu yapmak istiyor musun?")
+            dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
+                override fun onClick(p00: DialogInterface?, p1: Int) {
+                    val rate =
+                        rate?.let { it1 ->
+                            Rate(uniName.toString(),bolumName.toString(),
+                                it1,appUtil.userName)
+                        }
+                    rate?.let { it1 -> viewModel.rateIts(it1) }
+                    viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+                    binding.detailRatingBar.rating = viewModel.rateList.value!!.average().toFloat()
+                    viewModel.sendComments(binding.textCommentEditText.text.toString(),
+                        uniName.toString(), appUtil.userName ,bolumName.toString(),binding.textCommentEditText)
+                }
+            })
+            dialog.setNegativeButton("Hayır",object  : DialogInterface.OnClickListener{
+                override fun onClick(p00: DialogInterface?, p1: Int) {
+                    binding.detailRatingBar.rating = viewModel.rateList.value!!.average().toFloat()
+                }
+            })
+            dialog.show()
+
+        }
+        binding.detailRatingBarShow.setOnRatingBarChangeListener { ratingBar, fl, b ->
+            rate = fl.toDouble()
         }
         viewModel.showDetails(uniName.toString(),bolumName.toString())
+
         viewModel.detailList.observe(viewLifecycleOwner, Observer {
             if (it != null){
                 binding.detailInformationTv.text = ""
@@ -69,30 +107,16 @@ class DetailFragment : Fragment() {
             }
         })
 
-        binding.detailRatingBar.setOnRatingBarChangeListener { ratingBar, fl, b ->
-            if (b){
+        binding.detailRatingBar.setOnRatingBarChangeListener { p0, p1, p2 ->
+            if (p2){
                 //popup ekranı çıkar evete basarsa
-                Log.d("detailRatingBar","isNotEmpty")
-
-                val dialog = AlertDialog.Builder(this.context)
-                dialog.setTitle("Puanlama yapmak istiyor musun?")
-                dialog.setMessage("${binding.bolumNameDetailTv.text} Bolumune $fl Puan vermek istiyor musun?")
-                dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        val rate = Rate(uniName.toString(),bolumName.toString(),fl.toDouble(),appUtil.userName)
-                        viewModel.rateIts(rate)
-                        viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
-                        ratingBar.rating = viewModel.rateList.value!!.average().toFloat()
-                    }
-                })
-                dialog.setNegativeButton("Hayır",object  : DialogInterface.OnClickListener{
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        ratingBar.rating = viewModel.rateList.value!!.average().toFloat()
-                    }
-                })
-                dialog.show()
-            }
+                viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+                p0.rating = viewModel.rateList.value!!.average().toFloat()
+                }
         }
+
+
+
         viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
         viewModel.isEmpty.observe(viewLifecycleOwner, Observer {
             if (it){

@@ -24,13 +24,14 @@ import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.adapter.UniversityRecyclerViewAdapter
 import com.pandapp.preferenceapp.databinding.ActivityMainBinding
 import com.pandapp.preferenceapp.databinding.FragmentHomeBinding
+import com.pandapp.preferenceapp.databinding.FragmentUniBinding
 import com.pandapp.preferenceapp.model.User
 import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
 import com.pandapp.preferenceapp.util.appUtil
 
 class UniversityFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentUniBinding? = null
     private val viewModel : UniversityViewModel by viewModels()
     private val mainActivity : MainActivity = MainActivity()
     var universityNameList = ArrayList<String>()
@@ -48,7 +49,7 @@ class UniversityFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentUniBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }

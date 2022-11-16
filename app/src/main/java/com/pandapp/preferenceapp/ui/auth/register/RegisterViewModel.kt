@@ -1,5 +1,6 @@
 package com.pandapp.preferenceapp.ui.auth.register
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.repository.AuthIRepository
@@ -14,9 +15,9 @@ class RegisterViewModel : ViewModel() ,AuthIRepository {
     var authPassword = MutableLiveData<String>()
     var isSuccessValue = MutableLiveData<Boolean>()
 
-    fun registerAuth(userName: String,email: String,password: String){
+    fun registerAuth(userName: String,email: String,password: String,view: View){
         authTrigger.value = true
-        authRepository.register(userName,email,password)
+        authRepository.register(userName,email,password,view)
     }
     override fun login(email: String, password: String) {
 

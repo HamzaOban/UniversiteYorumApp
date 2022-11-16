@@ -24,24 +24,24 @@ class AuthRepository(authIRepo: AuthIRepository) {
 
     fun login(email: String, password : String, view: View){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener {
-                Log.d("login","Başarılı")
-                val action = LoginFragmentDirections.actionLoginFragmentToNavUni()
+            .addOnSuccessListener {
+                val action = LoginFragmentDirections.actionLoginFragmentToNavHome()
                 Navigation.findNavController(view).navigate(action)
-
             }
             .addOnFailureListener {
                 it.printStackTrace()
+                Toast.makeText(view.context,"Kullanıcı Adı veya Şifre hatalı! Tekrar Deneyiniz.",Toast.LENGTH_LONG).show()
             }
     }
 
-    fun register(userName: String, email: String, password : String){
+    fun register(userName: String, email: String, password : String,view: View){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
-            .addOnCompleteListener {
+            .addOnSuccessListener {
                 saveUserToFirebaseDatabase(userName,email,password)
             }
             .addOnFailureListener {
                 it.printStackTrace()
+                Toast.makeText(view.context,"${it.message}! Tekrar Deneyiniz.",Toast.LENGTH_LONG).show()
             }
     }
     private fun saveUserToFirebaseDatabase(userName: String, email: String, password: String){

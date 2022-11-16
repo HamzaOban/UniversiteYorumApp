@@ -38,7 +38,7 @@ class RegisterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if(Firebase.auth.currentUser != null){
-            val action = RegisterFragmentDirections.actionRegisterFragmentToNavUni()
+            val action = RegisterFragmentDirections.actionRegisterFragmentToNavHome()
             view?.let { Navigation.findNavController(it).navigate(action) }
         }
     }
@@ -46,14 +46,27 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.registerbtn.setOnClickListener {
+            if (binding.RegisterUserNameET.text.isEmpty()){
+                binding.RegisterUserNameET.error = "Lütfen Kullanıcı Adınızı Giriniz."
+                return@setOnClickListener
+            }
+            if (binding.RegisterEmailET.text.isEmpty()){
+                binding.RegisterEmailET.error = "Lütfen Email Giriniz."
+                return@setOnClickListener
+            }
+            if (binding.RegisterPasswordET.text.isEmpty()){
+                binding.RegisterPasswordET.error = "Lütfen Şifrenizi Giriniz."
+                return@setOnClickListener
+            }
             viewModel.registerAuth(binding.RegisterUserNameET.text.toString(),
                 binding.RegisterEmailET.text.toString(),
-                binding.RegisterPasswordET.text.toString())
+                binding.RegisterPasswordET.text.toString(),
+            view)
         }
         
         viewModel.isSuccessValue.observe(viewLifecycleOwner, Observer {
             if (it){
-                val action = RegisterFragmentDirections.actionRegisterFragmentToNavUni()
+                val action = RegisterFragmentDirections.actionRegisterFragmentToNavHome()
                 Navigation.findNavController(view).navigate(action)
             }
         })

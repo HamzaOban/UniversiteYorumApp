@@ -33,6 +33,14 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.loginbtn.setOnClickListener {
+            if (binding.LoginEmailET.text.isEmpty()){
+                binding.LoginEmailET.error = "Lütfen Email Giriniz."
+                return@setOnClickListener
+            }
+            if (binding.LoginPasswordET.text.isEmpty()){
+                binding.LoginPasswordET.error = "Lütfen Şifrenizi Giriniz."
+                return@setOnClickListener
+            }
             viewModel.loginAuth(binding.LoginEmailET.text.toString(),binding.LoginPasswordET.text.toString(), view)
         }
         binding.backToRegistrationTV.setOnClickListener {
