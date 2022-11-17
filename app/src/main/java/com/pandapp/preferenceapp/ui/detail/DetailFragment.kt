@@ -31,6 +31,7 @@ class DetailFragment : Fragment() {
     private lateinit var binding : FragmentDetailBinding
     private lateinit var adapter : DetailRecyclerViewAdapter
     var detailList = ArrayList<Detail>()
+    val rateList : ArrayList<Double> = arrayListOf()
     private val viewModel : DetailViewModel by viewModels()
     var bolumName : String ?= ""
     var uniName : String ?= ""
@@ -74,6 +75,7 @@ class DetailFragment : Fragment() {
             dialog.setTitle("Puanlama ve Yorum Yapmak İstiyor Musun?")
             dialog.setMessage("${binding.bolumNameDetailTv.text} Bolumune $rate Puan vermek ve ${binding.textCommentEditText.text} yorumunu yapmak istiyor musun?")
             dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onClick(p00: DialogInterface?, p1: Int) {
                     val rate =
                         rate?.let { it1 ->
@@ -81,15 +83,17 @@ class DetailFragment : Fragment() {
                                 it1,appUtil.userName)
                         }
                     rate?.let { it1 -> viewModel.rateIts(it1) }
-                    viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
-                    binding.detailRatingBar.rating = viewModel.rateList.value!!.average().toFloat()
+                    binding.detailRatingBar.rating = rateList.average().toFloat()
                     viewModel.sendComments(binding.textCommentEditText.text.toString(),
                         uniName.toString(), appUtil.userName ,bolumName.toString(),binding.textCommentEditText)
+
+                    viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+                    adapter.notifyDataSetChanged()
                 }
             })
             dialog.setNegativeButton("Hayır",object  : DialogInterface.OnClickListener{
                 override fun onClick(p00: DialogInterface?, p1: Int) {
-                    binding.detailRatingBar.rating = viewModel.rateList.value!!.average().toFloat()
+                    binding.detailRatingBar.rating = rateList.average().toFloat()
                 }
             })
             dialog.show()
@@ -98,7 +102,6 @@ class DetailFragment : Fragment() {
         binding.detailRatingBarShow.setOnRatingBarChangeListener { ratingBar, fl, b ->
             rate = fl.toDouble()
         }
-        viewModel.showDetails(uniName.toString(),bolumName.toString())
 
         viewModel.detailList.observe(viewLifecycleOwner, Observer {
             if (it != null){
@@ -111,13 +114,14 @@ class DetailFragment : Fragment() {
             if (p2){
                 //popup ekranı çıkar evete basarsa
                 viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
-                p0.rating = viewModel.rateList.value!!.average().toFloat()
+                p0.rating = rateList.average().toFloat()
                 }
         }
 
 
-
+        bolumName?.let { uniName?.let { it1 -> viewModel.showDetails(it1, it) } }
         viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+
         viewModel.isEmpty.observe(viewLifecycleOwner, Observer {
             if (it){
                 binding.detailProgressBar.visibility = View.GONE
@@ -131,7 +135,11 @@ class DetailFragment : Fragment() {
             }
         })
         viewModel.rateList.observe(viewLifecycleOwner, Observer {
-            val average = it.average()
+
+            it.forEach {
+                rateList.add(it.rate)
+            }
+            val average = rateList.average()
             Log.d("comment2",average.toString())
 
 

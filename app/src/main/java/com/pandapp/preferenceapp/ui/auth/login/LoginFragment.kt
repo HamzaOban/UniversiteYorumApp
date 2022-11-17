@@ -10,8 +10,11 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.databinding.FragmentLoginBinding
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragmentDirections
 
 class LoginFragment : Fragment() {
 
@@ -20,12 +23,11 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseAuth.getInstance().signOut()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        // Inflate the layout for this fragment
-
         binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
@@ -45,7 +47,7 @@ class LoginFragment : Fragment() {
         }
         binding.backToRegistrationTV.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            Navigation.findNavController(it).navigate(action)
+            Navigation.findNavController(view).navigate(action)
         }
 
     }

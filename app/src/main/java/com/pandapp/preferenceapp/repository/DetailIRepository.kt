@@ -7,5 +7,5 @@ interface DetailIRepository {
     fun showDetail(commentList : ArrayList<Detail>)
     fun sendComment(comment : String,uniName : String, userName : String)
     fun rateIt(rate: Rate)
-    fun showRate(rate: Rate,rateList : ArrayList<Double>)
+    fun showRate(rate: Rate,rateList : ArrayList<Rate>)
 }

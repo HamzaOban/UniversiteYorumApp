@@ -93,18 +93,7 @@ class UniversityFragment : Fragment() {
         _binding?.recyclerView?.adapter = adapter
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                val action = UniversityFragmentDirections.actionNavUniToLoginFragment()
-                view?.let { Navigation.findNavController(it).navigate(action) }
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 
     @Deprecated("Deprecated in Java", ReplaceWith(
         "super.onCreateOptionsMenu(menu, inflater)",

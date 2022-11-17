@@ -16,6 +16,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.R
 import com.pandapp.preferenceapp.databinding.FragmentRegisterBinding
+import com.pandapp.preferenceapp.ui.auth.login.LoginFragment
+import com.pandapp.preferenceapp.ui.auth.login.LoginFragmentDirections
 
 class RegisterFragment : Fragment() {
     private val viewModel : RegisterViewModel by viewModels()
@@ -72,29 +74,8 @@ class RegisterFragment : Fragment() {
         })
         binding.alreadyAccountTV.setOnClickListener {
             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-            Navigation.findNavController(it).navigate(action)
+            Navigation.findNavController(view).navigate(action)
         }
 
-    }
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("Loglandın","31")
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("Loglandın","11")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Loglandın","21")
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
-
-    }
-    fun onBackPressed(): Boolean {
-        return false
     }
 }

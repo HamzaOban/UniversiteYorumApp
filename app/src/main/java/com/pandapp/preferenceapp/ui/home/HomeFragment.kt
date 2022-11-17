@@ -17,18 +17,7 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
     }
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                val action = HomeFragmentDirections.actionNavHomeToLoginFragment()
-                view?.let { Navigation.findNavController(it).navigate(action) }
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

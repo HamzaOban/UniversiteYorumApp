@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -46,13 +47,14 @@ class MainActivity : AppCompatActivity() {
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_uni,R.id.nav_comment,R.id.nav_home
+                R.id.nav_home,R.id.nav_uni,R.id.nav_comment
             ), drawerLayout
         )
         viewModel.getUserInfo()
@@ -64,10 +66,11 @@ class MainActivity : AppCompatActivity() {
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.header_email).text = UniversityFragment.user.email
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
+        navView.getHeaderView(0).setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+            Log.d("menuuu",contextMenu.get(0).itemId.toString())
+        }
 
     }
-
     override fun onStart() {
 
         super.onStart()
@@ -124,9 +127,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -134,7 +134,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean{
-       return super.onOptionsItemSelected(item)
+       /* when (item.itemId){
+            R.id.nav_home -> {
+                navView.setItemStyle(MaterialNavigationView.ITEM_STYLE_DEFAULT)
+            }
+            R.id.action_round_rect -> {
+                navView.setItemStyle(MaterialNavigationView.ITEM_STYLE_ROUND_RECTANGLE)
+            }
+            R.id.action_round_right -> {
+                navView.setItemStyle(MaterialNavigationView.ITEM_STYLE_ROUND_RIGHT)
+            }
+        }*/
+        return false
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

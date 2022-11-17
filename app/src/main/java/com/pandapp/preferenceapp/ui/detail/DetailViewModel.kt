@@ -14,7 +14,7 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     private var detailRepository = DetailRepository(this)
     val detail = MutableLiveData<Detail>()
     val rate = MutableLiveData<Rate>()
-    val rateList = MutableLiveData<List<Double>>()
+    val rateList = MutableLiveData<List<Rate>>()
     val detailList = MutableLiveData<List<Detail>>()
     val isLoaded = MutableLiveData<Boolean>()
     val isEmpty = MutableLiveData<Boolean>()
@@ -46,7 +46,7 @@ class DetailViewModel : ViewModel() , DetailIRepository{
         this.rate.value = rate
     }
 
-    override fun showRate(rate: Rate, rateList: ArrayList<Double>) {
+    override fun showRate(rate: Rate, rateList: ArrayList<Rate>) {
         isLoaded.value = true
 
         if (rateList.isEmpty()){

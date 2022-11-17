@@ -14,6 +14,8 @@ import com.pandapp.preferenceapp.MainActivity
 import com.pandapp.preferenceapp.model.User
 import com.pandapp.preferenceapp.ui.auth.login.LoginFragment
 import com.pandapp.preferenceapp.ui.auth.login.LoginFragmentDirections
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragment
+import com.pandapp.preferenceapp.ui.auth.register.RegisterFragmentDirections
 import com.pandapp.preferenceapp.util.appUtil
 import java.time.Duration
 import kotlin.coroutines.coroutineContext

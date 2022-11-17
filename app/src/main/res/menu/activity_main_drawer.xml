@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="all">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24"
@@ -17,5 +17,13 @@
             android:icon="@drawable/comment"
             android:title="@string/menu_comment" />
     </group>
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/loginFragment"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="@string/action_logout"
+            />
+    </group>
+
 
 </menu>
