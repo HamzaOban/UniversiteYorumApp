@@ -18,6 +18,7 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     val detailList = MutableLiveData<List<Detail>>()
     val isLoaded = MutableLiveData<Boolean>()
     val isEmpty = MutableLiveData<Boolean>()
+    val isSuccess = MutableLiveData<Boolean>()
 
     fun sendComments(comment: String, uniName: String, userName: String,bolumName : String, commentTextView: TextView){
         detailRepository.sendComment(comment,uniName,userName,bolumName,commentTextView)
@@ -31,6 +32,9 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     fun showRates(rate: Rate){
         Log.d("Average",rate.rate.toString())
         detailRepository.showRate(rate)
+    }
+    fun isSuccess(rate: Rate){
+        detailRepository.isSuccess(rate)
     }
 
     override fun showDetail(commentList: ArrayList<Detail>) {
@@ -60,6 +64,10 @@ class DetailViewModel : ViewModel() , DetailIRepository{
             this.rateList.value = rateList
         }
 
+    }
+
+    override fun isSuccess(isSuccess: Boolean) {
+        this.isSuccess.value = isSuccess
     }
 
 }

@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.pandapp.preferenceapp.model.Detail
 import com.pandapp.preferenceapp.model.Rate
+import com.pandapp.preferenceapp.util.appUtil
 import java.util.UUID
 
 class DetailRepository(detailRepo: DetailIRepository) {
@@ -16,6 +17,7 @@ class DetailRepository(detailRepo: DetailIRepository) {
     var rateList = ArrayList<Rate>()
     var userNameList = ArrayList<String>()
     private var detailList : ArrayList<Detail> = arrayListOf()
+    private var isSuccess : Boolean = false
 
     fun showDetails(uniName : String,bolumName : String){
         val ref = FirebaseDatabase.getInstance().getReference("comment/$uniName/$bolumName")
@@ -79,54 +81,75 @@ class DetailRepository(detailRepo: DetailIRepository) {
 
     fun showRate(rate: Rate){
         val ref = FirebaseDatabase.getInstance().getReference("rate/${rate.uniName}/${rate.bolumName}")
-
         ref.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val rate = snapshot.getValue(Rate::class.java)
+                val rateValue = snapshot.getValue(Rate::class.java)
                 val snapName = snapshot.child("userName").value
-                if (userNameList.isEmpty()){
-                    rate?.let {
-                        rateList.add(it)
-                        userNameList.add(snapName.toString())
-                        detailIRepository.showRate(rate,rateList)
-                        Log.d("Logladık","1")
-                    }
-
+                rateValue?.let {
+                    rateList.add(it)
+                    userNameList.add(snapName.toString())
+                    detailIRepository.showRate(rate,rateList)
+                    Log.d("Logladık","1")
                 }
             }
-
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-
-                val rate = snapshot.getValue(Rate::class.java)
-                val snapName = snapshot.child("userName").value
-
-                for (i in rateList.indices){
-                    Log.d("Logladık", rateList[i].userName)
-                    if (rateList[i].userName == snapName){
-                        if (rate != null) {
-                            rateList[i].rate = rate.rate
-
-                        }
-                    }
-                }
-                rate?.let { detailIRepository.showRate(it,rateList) }
             }
-
             override fun onChildRemoved(snapshot: DataSnapshot) {
-
             }
-
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
             }
-
             override fun onCancelled(error: DatabaseError) {
-
             }
 
         })
         if (rateList.isEmpty()){
             detailIRepository.showRate(rate,rateList)
         }
+    }
+
+    fun isSuccess(rate: Rate){
+        val ref = FirebaseDatabase.getInstance().getReference("rate/${rate.uniName}/${rate.bolumName}")
+        ref.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val rate2 = snapshot.getValue(Rate::class.java)
+                val snapName = snapshot.child("userName").value
+                Log.d("Selam2",appUtil.userName + "  " +snapName)
+                if (rate.userName == snapName){
+                    isSuccess = true
+                    detailIRepository.isSuccess(isSuccess)
+                }
+                else{
+                    isSuccess = false
+                    detailIRepository.isSuccess(isSuccess)
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val rate2 = snapshot.getValue(Rate::class.java)
+                val snapName = snapshot.child("userName").value
+                Log.d("Selam2",appUtil.userName + "  " +snapName)
+                if (appUtil.userName == snapName){
+                    isSuccess = true
+                    detailIRepository.isSuccess(isSuccess)
+                }
+                else{
+                    isSuccess = false
+                    detailIRepository.isSuccess(isSuccess)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }

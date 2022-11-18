@@ -1,6 +1,5 @@
 package com.pandapp.preferenceapp.ui.detail
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -24,6 +23,10 @@ import com.pandapp.preferenceapp.databinding.FragmentDetailBinding
 import com.pandapp.preferenceapp.model.Detail
 import com.pandapp.preferenceapp.model.Rate
 import com.pandapp.preferenceapp.util.appUtil
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 
 class DetailFragment : Fragment() {
@@ -49,6 +52,7 @@ class DetailFragment : Fragment() {
         adapter = DetailRecyclerViewAdapter(detailList)
         val verticalDividers = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
         verticalDividers.setDrawable(resources.getDrawable(com.pandapp.preferenceapp.R.drawable.vertical_divider))
+        appUtil.getUserName()
 
 
         binding.yorumlarRecyclerViewTv.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
@@ -77,18 +81,28 @@ class DetailFragment : Fragment() {
             dialog.setPositiveButton("Evet",object  : DialogInterface.OnClickListener{
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onClick(p00: DialogInterface?, p1: Int) {
-                    val rate =
-                        rate?.let { it1 ->
-                            Rate(uniName.toString(),bolumName.toString(),
+                    val rate = rate?.let { it1 ->
+                            val ratemodel = Rate(uniName.toString(),bolumName.toString(),
                                 it1,appUtil.userName)
+                            viewModel.rateIts(ratemodel)
+                            viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),
+                                0.0,appUtil.userName))
                         }
-                    rate?.let { it1 -> viewModel.rateIts(it1) }
+
                     binding.detailRatingBar.rating = rateList.average().toFloat()
                     viewModel.sendComments(binding.textCommentEditText.text.toString(),
                         uniName.toString(), appUtil.userName ,bolumName.toString(),binding.textCommentEditText)
-
-                    viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
                     adapter.notifyDataSetChanged()
+
+                    viewModel.isSuccess(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+
+                    viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
+                        if (it){
+                            binding.textInputLayout.visibility = View.GONE
+                            binding.detailRatingBarShow.visibility = View.GONE
+                            binding.button2.visibility = View.GONE
+                        }
+                    })
                 }
             })
             dialog.setNegativeButton("Hayır",object  : DialogInterface.OnClickListener{
@@ -109,7 +123,7 @@ class DetailFragment : Fragment() {
                 adapter.detailListUpdate(it)
             }
         })
-
+        viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
         binding.detailRatingBar.setOnRatingBarChangeListener { p0, p1, p2 ->
             if (p2){
                 //popup ekranı çıkar evete basarsa
@@ -135,7 +149,7 @@ class DetailFragment : Fragment() {
             }
         })
         viewModel.rateList.observe(viewLifecycleOwner, Observer {
-
+            rateList.clear()
             it.forEach {
                 rateList.add(it.rate)
             }
@@ -149,12 +163,21 @@ class DetailFragment : Fragment() {
                 Log.d("selam2","true")
             }
             else{
-                binding.ratingScoreTv.text = average.toString()
+                val round = round(average * 100) / 100
+                binding.ratingScoreTv.text = round.toString()
                 binding.detailRatingBar.rating = average.toFloat()
                 Log.d("selam2","false")
 
             }
 
+        })
+        viewModel.isSuccess(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+        viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.textInputLayout.visibility = View.GONE
+                binding.detailRatingBarShow.visibility = View.GONE
+                binding.button2.visibility = View.GONE
+            }
         })
 
     }

@@ -8,4 +8,6 @@ interface DetailIRepository {
     fun sendComment(comment : String,uniName : String, userName : String)
     fun rateIt(rate: Rate)
     fun showRate(rate: Rate,rateList : ArrayList<Rate>)
+    fun isSuccess(isSuccess : Boolean)
+
 }
