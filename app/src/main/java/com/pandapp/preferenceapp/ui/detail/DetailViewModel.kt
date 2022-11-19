@@ -5,6 +5,8 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandapp.preferenceapp.model.Detail
+import com.pandapp.preferenceapp.model.Dislike
+import com.pandapp.preferenceapp.model.Like
 import com.pandapp.preferenceapp.model.Rate
 import com.pandapp.preferenceapp.repository.DetailIRepository
 import com.pandapp.preferenceapp.repository.DetailRepository
@@ -19,6 +21,11 @@ class DetailViewModel : ViewModel() , DetailIRepository{
     val isLoaded = MutableLiveData<Boolean>()
     val isEmpty = MutableLiveData<Boolean>()
     val isSuccess = MutableLiveData<Boolean>()
+    val like = MutableLiveData<Like>()
+
+    fun setLikes(rate: Rate){
+        detailRepository.setLikes(rate)
+    }
 
     fun sendComments(comment: String, uniName: String, userName: String,bolumName : String, commentTextView: TextView){
         detailRepository.sendComment(comment,uniName,userName,bolumName,commentTextView)
@@ -68,6 +75,22 @@ class DetailViewModel : ViewModel() , DetailIRepository{
 
     override fun isSuccess(isSuccess: Boolean) {
         this.isSuccess.value = isSuccess
+    }
+
+    override fun getLikeList(likeList: ArrayList<Like>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getDislikeList(dislikeList: ArrayList<Dislike>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setLike(like: Like) {
+        this.like.value = like
+    }
+
+    override fun setDislike(dislike: Dislike) {
+        TODO("Not yet implemented")
     }
 
 }

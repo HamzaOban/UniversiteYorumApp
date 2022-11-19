@@ -4,15 +4,11 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RatingBar
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,10 +19,7 @@ import com.pandapp.preferenceapp.databinding.FragmentDetailBinding
 import com.pandapp.preferenceapp.model.Detail
 import com.pandapp.preferenceapp.model.Rate
 import com.pandapp.preferenceapp.util.appUtil
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import kotlin.math.round
-import kotlin.math.roundToInt
 
 
 class DetailFragment : Fragment() {
@@ -34,8 +27,9 @@ class DetailFragment : Fragment() {
     private lateinit var binding : FragmentDetailBinding
     private lateinit var adapter : DetailRecyclerViewAdapter
     var detailList = ArrayList<Detail>()
+    var rateLists = ArrayList<Rate>()
     val rateList : ArrayList<Double> = arrayListOf()
-    private val viewModel : DetailViewModel by viewModels()
+    val viewModel : DetailViewModel by viewModels()
     var bolumName : String ?= ""
     var uniName : String ?= ""
     var rate : Double ?= 0.0
@@ -44,12 +38,8 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.yorumlarRecyclerViewTv.layoutManager = LinearLayoutManager(context)
-        val horizontalDecoration = DividerItemDecoration(
-            binding.yorumlarRecyclerViewTv.context,
-            DividerItemDecoration.VERTICAL
-        )
 
-        adapter = DetailRecyclerViewAdapter(detailList)
+        adapter = DetailRecyclerViewAdapter(detailList,rateLists)
         val verticalDividers = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
         verticalDividers.setDrawable(resources.getDrawable(com.pandapp.preferenceapp.R.drawable.vertical_divider))
         appUtil.getUserName()
@@ -65,6 +55,7 @@ class DetailFragment : Fragment() {
             binding.bolumNameDetailTv.text = bolumName
             binding.uniNameDetailTv.text = uniName
         }
+        //GÖnder butonuna tıklandığında olacak şeyler
         binding.button2.setOnClickListener {
             if (rate == 0.0){
                 Toast.makeText(view.context,"Lütfen puanlama yapınız.", Toast.LENGTH_SHORT).show()
@@ -113,17 +104,29 @@ class DetailFragment : Fragment() {
             dialog.show()
 
         }
+
+        //Kullanıcının verdiği puanı anlık olarak kaydediyoruz.
         binding.detailRatingBarShow.setOnRatingBarChangeListener { ratingBar, fl, b ->
             rate = fl.toDouble()
         }
-
-        viewModel.detailList.observe(viewLifecycleOwner, Observer {
-            if (it != null){
-                binding.detailInformationTv.text = ""
-                adapter.detailListUpdate(it)
-            }
-        })
         viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+        //yorumları liste şeklinde gözlemlediğimiz yer.
+        viewModel.detailList.observe(viewLifecycleOwner, Observer {comment->
+
+
+                viewModel.rateList.observe(viewLifecycleOwner, Observer {rate->
+                    if (rate != null && comment != null){
+                        binding.detailInformationTv.text = ""
+                        adapter.detailListUpdate(comment)
+                        adapter.detailListUpdate(rate)
+                    }
+                })
+
+
+        })
+
+        viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+
         binding.detailRatingBar.setOnRatingBarChangeListener { p0, p1, p2 ->
             if (p2){
                 //popup ekranı çıkar evete basarsa
@@ -134,7 +137,7 @@ class DetailFragment : Fragment() {
 
 
         bolumName?.let { uniName?.let { it1 -> viewModel.showDetails(it1, it) } }
-        viewModel.showRates(Rate(uniName.toString(),bolumName.toString(),0.0,appUtil.userName))
+
 
         viewModel.isEmpty.observe(viewLifecycleOwner, Observer {
             if (it){
@@ -149,13 +152,13 @@ class DetailFragment : Fragment() {
             }
         })
         viewModel.rateList.observe(viewLifecycleOwner, Observer {
+
             rateList.clear()
             it.forEach {
                 rateList.add(it.rate)
             }
-            val average = rateList.average()
-            Log.d("comment2",average.toString())
 
+            val average = rateList.average()
 
             if (average.isNaN()){
                 binding.ratingScoreTv.text = 0.0.toString()

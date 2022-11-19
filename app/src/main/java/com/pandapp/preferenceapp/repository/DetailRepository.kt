@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.pandapp.preferenceapp.model.Detail
+import com.pandapp.preferenceapp.model.Like
 import com.pandapp.preferenceapp.model.Rate
 import com.pandapp.preferenceapp.util.appUtil
 import java.util.UUID
@@ -151,5 +152,15 @@ class DetailRepository(detailRepo: DetailIRepository) {
             }
 
         })
+    }
+
+    fun setLikes(rate: Rate) {
+        val likes = Like(rate.userName)
+        FirebaseDatabase.getInstance()
+            .getReference("comment/${rate.uniName}/${rate.bolumName}/${rate.userName}")
+            .setValue(likes)
+            .addOnSuccessListener {
+                detailIRepository.setLike(likes)
+            }
     }
 }

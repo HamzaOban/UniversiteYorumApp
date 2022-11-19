@@ -7,6 +7,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.pandapp.preferenceapp.model.Comment
+import com.pandapp.preferenceapp.model.Like
+import com.pandapp.preferenceapp.model.Rate
 
 class CommentRepository(commentIRepo : CommentIRepository) {
     private var commentIRepository : CommentIRepository = commentIRepo
@@ -83,4 +85,6 @@ class CommentRepository(commentIRepo : CommentIRepository) {
 
         })
     }
+
+
 }
